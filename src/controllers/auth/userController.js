@@ -99,13 +99,14 @@ export const loginUser = asyncHandler(async (req, res) => {
     const { _id, name, email, role, photo, bio, isVerified } = userExists;
 
     // set the token in the cookie
-    res.cookie("token", token, {
-      path: "/",
-      httpOnly: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 дней
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      secure: process.env.NODE_ENV === "production",
-   
+    res.cookie('token', token, {
+      httpOnly: true, 
+      secure: true,   
+      sameSite: 'none', 
+      domain: '.onrender.com',
+      path: '/',  
+      maxAge: 30 * 24 * 60 * 60 * 1000, 
+      priority: 'high' 
     });
 
     // send back the user and token in the response to the client
