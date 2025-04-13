@@ -14,10 +14,10 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL,// Ваш фронтенд URL
-  credentials: true, // Разрешить куки/авторизацию
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', "UPDATE", "OPTIONS"], // Разрешенные методы
-  allowedHeaders: ['Content-Type', 'Authorization'] // Разрешенные заголовки
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', "UPDATE", "OPTIONS"],
+  allowedHeaders: ['Content-Type', 'Authorization'] 
 };
 
 //middleware  
