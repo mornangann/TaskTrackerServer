@@ -14,10 +14,7 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 const corsOptions = {
-  origin:[
-    'https://task-tracker-client-ten.vercel.app',
-    'https://tasktrackerserver-7n88.onrender.com' 
-  ],
+  origin:'https://task-tracker-client-ten.vercel.app',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', "UPDATE", "OPTIONS"],
   allowedHeaders: ['Content-Type', 'Authorization'],
