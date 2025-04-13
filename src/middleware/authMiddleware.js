@@ -5,13 +5,17 @@ import User from "../models/auth/UserModel.js";
 export const protect = asyncHandler(async (req, res, next) => {
   // 1. Получаем токен из кук или заголовка Authorization
   let token;
+  
   if (req.cookies.token) {
     token = req.cookies.token;
     console.log('Token from cookies:', token);
   } else if (req.headers.authorization?.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
-    console.log('Token from headers:', token);
+  } else if (req.headers['x-access-token']) {  
+    token = req.headers['x-access-token'];
   }
+    console.log('Token from headers:', token);
+  
 
   // 2. Проверка наличия токена
   if (!token) {
