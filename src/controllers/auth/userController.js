@@ -47,7 +47,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     httpOnly: true, 
     secure: true,  
     sameSite: 'none', 
-    domain: '.onrender.com', 
+    domain: 'tasktrackerserver-7n88.onrender.com', 
     path: '/',      
     maxAge: 30 * 24 * 60 * 60 * 1000, 
     priority: 'high'
@@ -105,7 +105,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       httpOnly: true, 
       secure: true,   
       sameSite: 'none', 
-      domain: '.onrender.com',
+      domain: 'tasktrackerserver-7n88.onrender.com',
       path: '/',  
       maxAge: 30 * 24 * 60 * 60 * 1000, 
       priority: 'high' 
