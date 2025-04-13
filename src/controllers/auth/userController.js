@@ -47,7 +47,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     httpOnly: true, 
     secure: true,  
     sameSite: 'none', 
-    domain: '.onrender.com', 
+    domain: 'https://tasktrackerserver-7n88.onrender.com', 
     path: '/',      
     maxAge: 30 * 24 * 60 * 60 * 1000, 
     priority: 'high'
@@ -105,7 +105,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       httpOnly: true, 
       secure: true,   
       sameSite: 'none', 
-      domain: '.onrender.com',
+      domain: 'https://tasktrackerserver-7n88.onrender.com',
       path: '/',  
       maxAge: 30 * 24 * 60 * 60 * 1000, 
       priority: 'high' 
@@ -130,13 +130,10 @@ export const loginUser = asyncHandler(async (req, res) => {
 // logout user
 export const logoutUser = asyncHandler(async (req, res) => {
   res.clearCookie("token", {
-    httpOnly: true, 
-      secure: true,   
-      sameSite: 'none', 
-      domain: 'tasktrackerserver-7n88.onrender.com',
-      path: '/',  
-      maxAge: 30 * 24 * 60 * 60 * 1000, 
-      priority: 'high' 
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    path: "/",
   });
 
   res.status(200).json({ message: "User logged out" });
