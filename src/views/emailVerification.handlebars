@@ -1,0 +1,97 @@
+{{!-- <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify Your Email</title>
+    <style>
+
+      *{ text-decoration: none; } .container{ margin: 0 auto; max-width: 500px;
+      width: 100%; } .btn-link{ display: inline-block; padding: 10px 20px;
+      background-color: #007bff; color: #fff !important; text-decoration: none;
+      border-radius: 5px; } img{ width: 30px; border-radius: 50%;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <h2 class="color-primary">{{subject}}</h2>
+      <hr />
+      <p>Hello
+        {{name}},
+      </p>
+      <p>Please use the url below to verify your account.<br />This link is
+        valid for 24 hours.</p>
+
+      <a href={{link}} class="btn-link">Verify Account</a>
+
+      <p style="margin-bottom: 50px;">
+        If you didn't create an account, you can ignore this email.
+      </p>
+
+      <hr />
+      <p>Regards,</p>
+      <p><b>TaskTracker</b> Team</p>
+      <div>
+        <p style="font-size: 0.8rem;">
+          If you’re having trouble clicking the "Verify Account" button, copy
+          and paste the URL below into your web browser:
+          <br />
+          <a href={{link}}>{{link}}</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html> --}}
+
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Подтвердите ваш email</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial',
+      sans-serif; } body { background-color: #f4f7fc; padding: 20px; }
+      .container { background-color: #ffffff; margin: 0 auto; max-width: 600px;
+      width: 100%; padding: 20px; border-radius: 8px; box-shadow: 0 4px 20px
+      rgba(0, 0, 0, 0.1); } h2 { color: #2c3e50; font-size: 1.75rem; text-align:
+      center; margin-bottom: 15px; } hr { border: 1px solid #ecf0f1;
+      margin-bottom: 20px; } p { color: #7f8c8d; font-size: 1rem; line-height:
+      1.6; } .btn-link { display: inline-block; padding: 15px 30px;
+      background-color: #3aafae; color: #fff !important; text-decoration: none;
+      border-radius: 5px; font-size: 1.1rem; text-align: center; width: 100%;
+      margin-top: 20px; transition: background-color 0.3s; } .btn-link:hover {
+      background-color: #1abc9c; } .footer { font-size: 0.9rem; color: #95a5a6;
+      margin-top: 40px; text-align: center; } .footer a { color: #3aafae;
+      text-decoration: none; } .footer a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <h2>Подтвердите ваш email</h2>
+      <hr />
+      <p>Здравствуйте, {{name}}!</p>
+      <p>Для завершения регистрации и активации вашего аккаунта, пожалуйста,
+        используйте ссылку ниже. Ссылка будет действительна в течение 24 часов.</p>
+
+      <a href="{{link}}" class="btn-link">Подтвердить аккаунт</a>
+
+      <p class="footer">
+        Если вы не регистрировались на нашем сайте, просто проигнорируйте это
+        письмо.
+      </p>
+
+      <hr />
+      <p>С уважением,</p>
+      <p><b>Команда TaskTracker</b></p>
+      <div class="footer">
+        <p>Если у вас возникли проблемы с переходом по ссылке "Подтвердить
+          аккаунт", скопируйте и вставьте следующий URL в адресную строку вашего
+          браузера:</p>
+        <a href="{{link}}">{{link}}</a>
+      </div>
+    </div>
+  </body>
+</html>
