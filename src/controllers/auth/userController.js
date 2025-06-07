@@ -114,9 +114,15 @@ export const logoutUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    path: '/'
+    path: '/',
+    domain: process.env.NODE_ENV === 'production' 
+      ? '.https://task-tracker-client-ten.vercel.app' // Укажите ваш production домен
+      : undefined
   });
-  res.status(200).json({ message: "Logged out successfully" });
+  
+  // Добавляем заголовки против кеширования
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+  res.status(200).json({ success: true, message: "Logged out successfully" });
 });
 
 // get user
