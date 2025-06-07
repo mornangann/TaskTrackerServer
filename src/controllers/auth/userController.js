@@ -74,72 +74,49 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 // user login
 export const loginUser = asyncHandler(async (req, res) => {
-  console.info("-----------------------------")
   const { email, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  const userExists = await User.findOne({ email });
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ message: "User not found" });
 
-  if (!userExists) {
-    return res.status(404).json({ message: "User not found, sign up!" });
-  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-  // check id the password match the hashed password in the database
-  const isMatch = await bcrypt.compare(password, userExists.password);
+  const token = generateToken(user._id);
 
-  if (!isMatch) {
-    return res.status(400).json({ message: "Invalid credentials" });
-  }
+  // Устанавливаем куку
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    path: '/'
+  });
 
-  const token = generateToken(userExists._id);
-  console.log("Generated token:", token); 
-
-  if (userExists && isMatch) {
-    const { _id, name, email, role, photo, bio, isVerified } = userExists;
-
-    // set the token in the cookie
-    res.cookie('token', token, {
-      httpOnly: true, 
-      secure: true,   
-      sameSite: 'none', 
-      domain: 'tasktrackerserver-7n88.onrender.com',
-      path: '/',  
-      maxAge: 30 * 24 * 60 * 60 * 1000, 
-      priority: 'high' 
-    });
-
-    // send back the user and token in the response to the client
-    res.status(200).json({
-      _id,
-      name,
-      email,
-      role,
-      photo,
-      bio,
-      isVerified,
-      token,
-    });
-  } else {
-    res.status(400).json({ message: "Invalid email or password" });
-  }
+  res.status(200).json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    photo: user.photo,
+    bio: user.bio,
+    isVerified: user.isVerified
+  });
 });
 
 // logout user
 export const logoutUser = asyncHandler(async (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true, 
-    secure: true,  
-    sameSite: 'none', 
-    domain: 'tasktrackerserver-7n88.onrender.com',
-    path: '/',      
-    maxAge: 30 * 24 * 60 * 60 * 1000, 
-    priority: 'high'
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    path: '/'
   });
-
-  res.status(200).json({ message: "User logged out" });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 // get user
@@ -190,19 +167,13 @@ export const updateUser = asyncHandler(async (req, res) => {
 // login status
 export const userLoginStatus = asyncHandler(async (req, res) => {
   const token = req.cookies.token;
-
-  if (!token) {
-    console.log("No token found in cookies");
-    return res.status(401).json({ message: "Not authorized, please login!" });
-  }
+  if (!token) return res.json(false);
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded);
-    res.status(200).json(true);
+    jwt.verify(token, process.env.JWT_SECRET);
+    res.json(true);
   } catch (error) {
-    console.log("JWT verification error:", error);
-    res.status(401).json(false);
+    res.json(false);
   }
 });
 
