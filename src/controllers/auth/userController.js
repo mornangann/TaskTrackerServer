@@ -94,7 +94,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     secure: true,
     sameSite: 'none',
     path: '/',
-    domain: '.https://task-tracker-client-ten.vercel.app'
+    domain: 'task-tracker-client-ten.vercel.app'
   });
 
   // Устанавливаем куку
@@ -102,7 +102,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
-    domain: '.https://task-tracker-client-ten.vercel.app',
+    domain: 'task-tracker-client-ten.vercel.app',
     path: '/',
     maxAge: 30 * 24 * 60 * 60 * 1000
   });
